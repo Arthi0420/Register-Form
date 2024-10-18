@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+</head>
+
+
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        margin-top: 100px;
+        background-color: rgb(202, 212, 226);
+    
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: rgb(236, 225, 234);
+        border: 5px;
+    }
+
+    button {
+        width: 100px;
+        margin-left: 35%;
+        padding: 10px;
+        background-color: rgb(165, 209, 182);
+        color: black;
+        font-size: large;
+        border: solid black 2px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .container {
+        background-color: rgb(18, 17, 18);
+        color: white;
+        border-radius: 10px;
+        width: 350px;
+        height: 500px;
+        box-shadow: rgba(10, 10, 10, 0.35) 0px 5px 15px;
+
+    }
+
+    .container h2 {
+        padding-left: 80px;
+    }
+
+    #registrationForm {
+        width: 80%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .error {
+        color: red;
+        font-size: 15px;
+    }
+
+    .id {
+        font-size: large;
+    }
+</style>
+
+
+<body>
+
+    <div class="container">
+        <h2>Registration Form</h2>
+        <form id="registrationForm">
+            <label for="name" class="id">Name:</label>
+            <input type="text" id="name" placeholder="Enter your Name" required>
+            <span class="error" id="nameError"></span><br><br>
+
+            <label for="email" class="id">Email:</label>
+            <input type="email" id="email" placeholder="Enter your Email" required>
+            <span class="error" id="emailError"></span><br><br>
+
+            <label for="password" class="id">Password:</label>
+            <input type="password" id="password" placeholder="Enter your Password" required>
+            <span class="error" id="passwordError"></span><br><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+
+        form.addEventListener('input', function () {
+            validateForm();
+        });
+
+        form.addEventListener('submit', function (event) {
+            if (!validateForm()) {
+                event.preventDefault();
+            } else {
+                alert("Form submitted successfully!");
+            }
+        });
+
+        function validateForm() {
+            let valid = true;
+
+            // Name validation
+            const name = document.getElementById('name');
+            const nameError = document.getElementById('nameError');
+            if (name.value.trim() === "") {
+                nameError.textContent = "Name is required.";
+                valid = false;
+            } else {
+                nameError.textContent = "";
+            }
+
+            // Email validation
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email.value)) {
+                emailError.textContent = "Invalid email format.";
+                valid = false;
+            } else {
+                emailError.textContent = "";
+            }
+
+            // Password validation
+            const password = document.getElementById('password');
+            const passwordError = document.getElementById('passwordError');
+            if (password.value.length < 6) {
+                passwordError.textContent = "Password must be at least 6 characters.";
+                valid = false;
+            } else {
+                passwordError.textContent = "";
+            }
+
+            return valid;
+        }
+    </script>
+
+</body>
+
+</html>
